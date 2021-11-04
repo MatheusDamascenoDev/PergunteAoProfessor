@@ -1,0 +1,24 @@
+.camera {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  video {
+    max-height: 500px;
+    max-width: 500px;
+    border: 10px solid #835afd;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  .button-audio {
+    button {
+      border: 3px solid #835afd;
+      border-radius: 5px;
+      padding: 5px;
+      background-color: #ccc;
+      color: #000;
+    }
+  }
+}

@@ -10,8 +10,9 @@
       justify-content: space-between;
       align-items: center;
 
-      > img {
-        max-height: 45px;
+      > a,
+      img {
+        max-height: 100px;
       }
 
       > div {
@@ -21,23 +22,39 @@
         button {
           height: 40px;
         }
+
+        .button.outlined {
+          color: #ff0000;
+        }
       }
     }
   }
 
   main {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
 
     .room-title {
       margin: 32px 0 24px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
 
       h1 {
         font-family: "Poppins", sans-serif;
         font-size: 24px;
         color: #29292e;
+        margin-right: 320px;
+      }
+
+      h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 15px;
+        padding: 5px;
+        color: #29292e;
+        background-color: #ccc;
+        border: 2px solid #000;
+        border-radius: 10px;
       }
 
       span {

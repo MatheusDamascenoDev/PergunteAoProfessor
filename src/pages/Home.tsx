@@ -1,9 +1,8 @@
 
 import { FormEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import googleIconImg from '../assets/images/google-icon.svg';
-import illustrationImg from '../assets/images/illustration.svg';
-import logoImg from '../assets/images/logo.svg';
+import logoImg from '../assets/images/logo.png';
 import { Button } from '../components/Button';
 import { useAuth } from '../hooks/useAuth';
 import { database } from '../services/firebase';
@@ -47,14 +46,12 @@ export  function Home() {
 
     return (
         <div id="page-auth">
-            <aside>
-                <img src={illustrationImg} alt="Ilustração simbolizando perguntas e respostas" />
-                <strong>Crie salas de Q&amp;A ao-vivo</strong>
-                <p>Tire as dúvidas da sua audiência em tempo-real</p>
-            </aside>
             <main>
                 <div className="main-content">
-                    <img src={logoImg} alt="LetMeAsk" />
+                    <Link to ="/">
+                        <img src={logoImg} alt="ask" />
+                    </Link>
+                    <strong>Crie salas e faça perguntas ao seu professor ao-vivo</strong>
                     <button onClick={handleCreateRoom} className="create-room">
                         <img src={googleIconImg} alt="Logo do Google" />
                         Crie sua sala com o Google

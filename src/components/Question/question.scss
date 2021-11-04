@@ -18,7 +18,7 @@
   }
 
   &.answered {
-    background: #dbdcdd;
+    background: #13a713b4;
   }
 
   p {
@@ -43,7 +43,7 @@
 
       span {
         margin-left: 8px;
-        color: #737380;
+        color: #000;
         font-size: 14px;
       }
     }
@@ -66,16 +66,16 @@
         gap: 8px;
 
         &.liked {
-          color: #835afd;
+          color: #32cd32;
 
           svg path {
-            stroke: #835afd;
+            stroke: #32cd32;
           }
         }
       }
 
       &:hover {
-        filter: brightness(0.7);
+        filter: brightness(0.8);
       }
     }
   }

@@ -1,16 +1,18 @@
 import { useParams } from 'react-router';
-import logoImg from '../assets/images/logo.svg';
+import logoImg from '../assets/images/logo.png';
 import deleteImg from '../assets/images/delete.svg';
 import checkImg from '../assets/images/check.svg';
 import answerImg from '../assets/images/answer.svg';
 import { Button } from '../components/Button';
 import { Question } from '../components/Question';
 import { RoomCode } from '../components/RoomCode';
-// import { useAuth } from '../hooks/useAuth';
+import { CameraAndAudio } from '../components/Camera/CameraAndAudio';
+//import { useAuth } from '../hooks/useAuth';
 import { useRoom } from '../hooks/useRoom';
 import '../styles/room.scss';
 import { database } from '../services/firebase';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
 
 type RoomParams = {
     id: string;
@@ -21,7 +23,7 @@ export function AdminRoom() {
     const history = useHistory();
     const params = useParams<RoomParams>();
     const roomId = params.id;
-    const { questions, title} = useRoom(roomId);
+    const { questions, title, subtitle} = useRoom(roomId);
 
     async function handleEndRoom() {
         database.ref(`rooms/${roomId}`).update({
@@ -53,7 +55,9 @@ export function AdminRoom() {
         <div id="page-room">
             <header>   
                 <div className="content">
-                    <img src={logoImg} alt="letmeask" />
+                    <Link to ="/">
+                        <img src={logoImg} alt="ask" />
+                    </Link>
                     <div>
                         <RoomCode code={roomId}/>
                         <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>
@@ -62,8 +66,10 @@ export function AdminRoom() {
             </header>
 
             <main>
+                {/* <CameraAndAudio/> */}
                 <div className="room-title">
                     <h1>Sala {title}</h1>
+                    <h2>Diciplina: {subtitle}</h2>
                     { questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
                 </div>
 
@@ -94,8 +100,9 @@ export function AdminRoom() {
                                     </>
                                 )}
                                 <button
-                                  type="button"
-                                  onClick={() => handleDeleteQuestion(question.id)}  
+                                    type="button"
+                                    className="delete-button"
+                                    onClick={() => handleDeleteQuestion(question.id)}  
                                 >
                                     <img src={deleteImg} alt="Remover pergunta" />
                                 </button>

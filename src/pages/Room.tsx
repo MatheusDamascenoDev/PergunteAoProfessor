@@ -1,12 +1,14 @@
 import { FormEvent, useState } from 'react';
 import { useParams } from 'react-router';
-import logoImg from '../assets/images/logo.svg';
+import { Link } from 'react-router-dom';
+import logoImg from '../assets/images/logo.png';
 import { Button } from '../components/Button';
 import { Question } from '../components/Question';
 import { RoomCode } from '../components/RoomCode';
 import { useAuth } from '../hooks/useAuth';
 import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
+import { CameraAndAudio } from '../components/Camera/CameraAndAudio';
 import '../styles/room.scss';
 
 type RoomParams = {
@@ -18,7 +20,7 @@ export function Room() {
     const params = useParams<RoomParams>();
     const [newQuestion, setNewQuestion] = useState('');
     const roomId = params.id;
-    const { questions, title} = useRoom(roomId);
+    const { questions, title, subtitle} = useRoom(roomId);
 
     async function handleSendQuestion(event: FormEvent) {
         event.preventDefault();
@@ -60,14 +62,18 @@ export function Room() {
         <div id="page-room">
             <header>   
                 <div className="content">
-                    <img src={logoImg} alt="letmeask" />
+                    <Link to ="/">
+                        <img src={logoImg} alt="ask" />
+                    </Link>
                     <RoomCode code={roomId}/>
                 </div>
             </header>
 
             <main>
+                {/* <CameraAndAudio/> */}
                 <div className="room-title">
                     <h1>Sala {title}</h1>
+                    <h2>Diciplina: {subtitle}</h2>
                     { questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
                 </div>
 

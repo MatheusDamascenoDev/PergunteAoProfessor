@@ -1,6 +1,5 @@
 import { Link, useHistory } from 'react-router-dom';
-import illustrationImg from '../assets/images/illustration.svg';
-import logoImg from '../assets/images/logo.svg';
+import logoImg from '../assets/images/logo.png';
 import { Button } from '../components/Button';
 import { useAuth } from '../hooks/useAuth';
 import { FormEvent, useState } from 'react';
@@ -10,6 +9,7 @@ import { database } from '../services/firebase';
 export  function NewRoom() {
     const { user } = useAuth();
     const [newRoom, setNewRoom] = useState('');
+    const [newRoomSubtitle, setNewRoomSubtitle] = useState('');
     const history = useHistory();
 
     async function handleCreateRoom(event: FormEvent) {
@@ -19,10 +19,15 @@ export  function NewRoom() {
             return;
         }
 
+        if (newRoomSubtitle.trim() === '') {
+            return;
+        }
+
         const roomRef = database.ref('rooms');
 
         const firebaseRoom = await roomRef.push({
             title: newRoom,
+            subtitle: newRoomSubtitle,
             authorId: user?.id,
         })
 
@@ -31,14 +36,12 @@ export  function NewRoom() {
 
     return (
         <div id="page-auth">
-            <aside>
-                <img src={illustrationImg} alt="Ilustração simbolizando perguntas e respostas" />
-                <strong>Crie salas de Q&amp;A ao-vivo</strong>
-                <p>Tire as dúvidas da sua audiência em tempo-real</p>
-            </aside>
             <main>
                 <div className="main-content">
-                    <img src={logoImg} alt="LetMeAsk" />
+                    <Link to ="/">
+                        <img src={logoImg} alt="ask" />
+                    </Link>
+                    <strong>Crie salas e faça perguntas ao seu professor ao-vivo</strong>
                     <h2>Criar uma nova sala</h2>
                    
                     <form onSubmit={handleCreateRoom}>
@@ -47,6 +50,12 @@ export  function NewRoom() {
                             placeholder="Nome da sala"
                             onChange={event => setNewRoom(event.target.value)}
                             value={newRoom}
+                        />
+                        <input 
+                            type="text" 
+                            placeholder="Diciplina da sala"
+                            onChange={event => setNewRoomSubtitle(event.target.value)}
+                            value={newRoomSubtitle}
                         />
                         <Button type="submit">
                            Criar sala
